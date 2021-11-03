@@ -2,6 +2,8 @@ use std::net::{ TcpListener, TcpStream };
 use std::io::{ Read };
 use std::fs;
 use std::io::Write;
+use rayon;
+
 
 const URL: &str = "127.0.0.1:7878";
 
@@ -16,19 +18,21 @@ fn main(){
     page_structure = get_pages(page_structure);
 
     let listener = TcpListener::bind(URL).unwrap();
+    let pool  = rayon::ThreadPoolBuilder::new().num_threads(8).build().unwrap();
     
     for stream in listener.incoming(){
         let stream = stream.unwrap();
-        render_page(stream, &page_structure);
+        pool.install(|| render_page(stream, &page_structure));
     }
 }
 
 fn render_page(mut stream: TcpStream, page_info: &Vec<Page>){
+    println!("{}", rayon::current_thread_index().unwrap());
+    
     let mut buffer = [0; 1024];
     stream.read(&mut buffer).unwrap();
     let mut page_exists = false;
     let mut current_path = String::new();
-
 
     for page in page_info.iter(){
         if buffer.starts_with(page.name.as_ref().unwrap().as_bytes()){
