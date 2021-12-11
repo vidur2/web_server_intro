@@ -15,7 +15,7 @@ struct Page {
 fn main(){
     // Stores listeners
     let mut page_structure: Vec<Page> = Vec::new();
-    page_structure = get_pages(page_structure);
+    page_structure = get_pages();
 
     let listener = TcpListener::bind(URL).unwrap();
     let pool  = rayon::ThreadPoolBuilder::new().num_threads(8).build().unwrap();
@@ -56,7 +56,8 @@ fn render_page(mut stream: TcpStream, page_info: &Vec<Page>){
 
 }
 
-fn get_pages(mut page_structure: Vec<Page>) -> Vec<Page>{
+fn get_pages() -> Vec<Page>{
+    let mut page_structure = Vec::<Page>::new();
     for entry in fs::read_dir("./pages").expect("Directory Does not exist"){
         let entry = entry.expect("No entry inside of the directory");
         let path = entry.path();

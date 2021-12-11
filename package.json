@@ -1,0 +1,22 @@
+{
+  "name": "web_server_intro",
+  "version": "1.0.0",
+  "description": "Attempt to use javascript with near-api-js and rust",
+  "main": "./pages/index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vidur2/web_server_intro.git"
+  },
+  "author": "vidur2",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vidur2/web_server_intro/issues"
+  },
+  "homepage": "https://github.com/vidur2/web_server_intro#readme",
+  "dependencies": {
+    "near-api-js": "^0.43.1"
+  }
+}
