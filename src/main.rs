@@ -14,8 +14,7 @@ struct Page {
 
 fn main(){
     // Stores listeners
-    let mut page_structure: Vec<Page> = Vec::new();
-    page_structure = get_pages();
+    let page_structure = get_pages();
 
     let listener = TcpListener::bind(URL).unwrap();
     let pool  = rayon::ThreadPoolBuilder::new().num_threads(8).build().unwrap();
